@@ -3,6 +3,7 @@ services:
     build:
       context: .
       dockerfile: Dockerfile
+    container_name: calculadora-imc-app
     ports:
       - "8000:80"
     volumes:
