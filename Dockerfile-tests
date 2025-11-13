@@ -1,0 +1,32 @@
+# Use uma imagem oficial do PHP com a interface de linha de comando (CLI).
+# A versão 8.0 é compatível com a sua configuração no composer.json.
+FROM php:8.0-cli
+
+# Define o diretório de trabalho dentro do contêiner.
+WORKDIR /app
+
+# Instala as dependências do sistema necessárias para o Composer e extensões do PHP.
+# git e unzip são frequentemente usados pelo Composer para baixar pacotes.
+# libzip-dev e zip são para a extensão 'zip' do PHP.
+RUN apt-get update && apt-get install -y \
+    git \
+    unzip \
+    zip \
+    libzip-dev \
+    && docker-php-ext-install zip
+
+# Copia o instalador do Composer da imagem oficial do Composer e o torna disponível globalmente.
+COPY --from=composer:latest /usr/bin/composer /usr/bin/composer
+
+# Copia os arquivos de definição de dependências para o contêiner.
+COPY composer.json ./
+
+# Instala as dependências do projeto, incluindo as de desenvolvimento (require-dev) como o PHPUnit.
+RUN composer install --no-interaction --prefer-dist
+
+# Copia o restante dos arquivos do projeto para o diretório de trabalho.
+COPY . .
+
+# Define o comando padrão que será executado quando o contêiner iniciar.
+# Este comando executa a suíte de testes PHPUnit.
+CMD ["/app/vendor/bin/phpunit", "."]

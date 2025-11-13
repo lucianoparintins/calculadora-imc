@@ -6,3 +6,10 @@ Este projeto é uma calculadora de Índice de Massa Corporal (IMC) desenvolvida 
 
 1.  Certifique-se de ter o Docker e o Docker Compose instalados.
 2.  Execute o comando `docker-compose up -d` no diretório raiz do projeto.
+
+## Testes 
+```bash
+docker build -t calculadora-imc-tests -f Dockerfile-tests .
+
+docker run --rm calculadora-imc-tests
+```
