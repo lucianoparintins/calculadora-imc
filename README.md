@@ -27,6 +27,7 @@ A estrutura de diretórios foi pensada para ser simples e escalável, separando 
 calculadora-imc/
 ├── src/                      # Contém o código-fonte da aplicação.
 │   └── CalcularIMCService.php
+│   └── index.php
 ├── tests/                    # Contém os testes automatizados.
 │   └── CalcularIMCServiceTest.php
 ├── .gitignore                # Arquivos e diretórios a serem ignorados pelo Git.
