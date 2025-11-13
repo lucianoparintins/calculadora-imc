@@ -8,3 +8,9 @@ services:
       - "8000:80"
     volumes:
       - ./src:/var/www/html/
+
+  tests:
+    build:
+      context: .
+      dockerfile: Dockerfile-tests
+    container_name: calculadora-imc-tests
